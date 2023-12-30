@@ -9,8 +9,7 @@
 - DATABASE - Data Layer
 
 
-
-HIGH LEVEL DESIGN:
+## HIGH LEVEL DESIGN:
 
 - Workflows -> Components
 
@@ -25,6 +24,8 @@ HIGH LEVEL DESIGN:
 - DB -> Redis (In memory datastore), MongoDB (User details), MySQL (Ratings)
 
 - OIDC - Integrating service accounts of Persistant volumes to IAM roles/policies (Redis -> Stateful Set -> Persistant Volume -> EBS)
+
+---
 
 ACCESS-KEY
 SECRET-KEY
