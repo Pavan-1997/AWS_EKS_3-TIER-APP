@@ -2,11 +2,11 @@
 
 THREE TIER ARCHITECTURAL MODEL:
 
-FRONT-END - UI - Presentation Layer
+- FRONT-END - UI - Presentation Layer
 
-BACK-END - Logic Layer
+- BACK-END - Logic Layer
 
-DATABASE - Data Layer
+- DATABASE - Data Layer
 
 
 
