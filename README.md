@@ -86,6 +86,7 @@ aws --version
 aws configure
 ```
 `Just give Access Key and Secret Key followed by ENTER-ENTER`
+
 `REGION - us-west-1`
 
 
