@@ -110,10 +110,15 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
 
-7. Create a EKS Cluster on AWS Fargate (Give your cluster name and region)
+7. Create a EKS Cluster on AWS without NodeGroup
+```   
 eksctl create cluster --name=eks-robot-shop-server --region=us-west-1 --zones=us-west-1a,us-west-1c --without-nodegroup
+```
 
+8. Create a NodeGroup with 2 instances giving necessary access with a existing keypair
+```
 eksctl create nodegroup --cluster=eks-robot-shop-server --region=us-west-1 --name=eksdemo-ng-public --node-type=t2.medium --nodes=2 --nodes-min=2 --nodes-max=4 --node-volume-size=10 --ssh-access --ssh-public-key=AWS-KEYPAIR-NC --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access
+```
 
 export cluster_name=eks-robot-shop-server
 
