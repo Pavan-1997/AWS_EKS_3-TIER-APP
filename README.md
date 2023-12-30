@@ -27,11 +27,89 @@
 
 ---
 
-ACCESS-KEY
-SECRET-KEY
+1. Now goto EC2 from AWS Console -> Click on Launch instance
 
-Region - us-west-1
+	Give a name
+	
+	Use Ubuntu as an image
+	
+	Instance type as t2.micro
+	
+	Create a key pair if already present use existing one
+	
+	Click on Launch instance
+	
+	Connect to the instance
 
+
+2. Install Docker
+```
+sudo apt update -y
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+apt-cache policy docker-ce
+
+sudo apt install docker-ce
+
+sudo usermod -aG docker $USER
+
+sudo systemctl status docker 
+```
+```
+sudo reboot
+```
+`Reboot the instance for Ubuntu user to execute docker commands`
+
+
+
+
+3. Install AWS CLI
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+sudo apt install unzip
+
+unzip awscliv2.zip
+
+sudo ./aws/install
+
+aws --version
+```
+
+4. Configure AWS CLI
+```
+aws configure
+```
+`Just give Access Key and Secret Key followed by ENTER-ENTER`
+`REGION - us-west-1`
+
+
+5. Install Kubectl
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version
+```
+
+6. Install Eksctl
+```
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp 
+
+sudo mv /tmp/eksctl /usr/local/bin
+
+eksctl version
+```
+
+7. Create a EKS Cluster on AWS Fargate (Give your cluster name and region)
 eksctl create cluster --name=eks-robot-shop-server --region=us-west-1 --zones=us-west-1a,us-west-1c --without-nodegroup
 
 eksctl create nodegroup --cluster=eks-robot-shop-server --region=us-west-1 --name=eksdemo-ng-public --node-type=t2.medium --nodes=2 --nodes-min=2 --nodes-max=4 --node-volume-size=10 --ssh-access --ssh-public-key=AWS-KEYPAIR-NC --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access
