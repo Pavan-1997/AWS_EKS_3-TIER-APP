@@ -192,8 +192,11 @@ h) Verify that the deployments are running.
 kubectl get deployment -n kube-system aws-load-balancer-controller
 ```
 
-EBS CSI - when a PVC is created then the EBS volume is automatically created and attached to the Redis Stateful Set 
+11. a) `EBS CSI - when a PVC is created then the EBS volume is automatically created and attached to the Redis Stateful Set`
 
+Create an IAM role and attach a policy. AWS maintains an AWS managed policy or you can create your own custom policy. You can create an IAM role and attach the AWS managed policy with the following command. Replace my-cluster with the name of your cluster. The command deploys an AWS CloudFormation stack that creates an IAM role and attaches the IAM policy to it.
+
+```
 eksctl create iamserviceaccount \
     --name ebs-csi-controller-sa \
     --namespace kube-system \
@@ -202,30 +205,54 @@ eksctl create iamserviceaccount \
     --role-only \
     --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
     --approve
+```
 	
+b) Create CSI Add-on
+```
 eksctl create addon --name aws-ebs-csi-driver --cluster $cluster_name --service-account-role-arn arn:aws:iam::009403810934:role/AmazonEKS_EBS_CSI_DriverRole --force
+```
 
-
+12. Create a namespace
+```
 kubectl create ns robot-shop
+```
+		
+13. Clone the repo
+```
+git clone https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture.git 
+```
 
-cd /home/ubuntu/three-tier-architecture-demo/EKS/helm
-
+14. Install helm
+```
+cd /home/ubuntu/AWS_EKS_3-Tier-Architecture/three-tier-architecture-demo/EKS/helm/
+```
+```
 helm install robot-shop --namespace robot-shop .
+```
 
-kubectl get pods
+15. Verify the pods
+```
+kubectl get pods -n robot-shop
+```
 
-
+16. Verify the service
+```
 kubectl get svc -n robot-shop
-
+```
 You can see the LB
 
 
-Using Ingress
-
-cd /home/ubuntu/three-tier-architecture-demo/EKS/helm
-
+17. Using Ingress
+```
 kubectl apply -f ingress.yaml
+```
 
+18. Verify the service
+```
 kubectl get svc -n robot-shop
+```
+You can see the Ingress
 
-Go to the Load Balancers and access the DNS
+19. Now go to the AWS EC2 Load Balancers and access the DNS
+
+
