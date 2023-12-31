@@ -27,7 +27,7 @@
 
 ---
 
-1. Now goto EC2 from AWS Console -> Click on Launch instance
+1. a) Now goto EC2 from AWS Console -> Click on Launch instance
 
 	Give a name
 	
@@ -41,6 +41,11 @@
 	
 	Connect to the instance
 
+b) Addiing IAM Role to EC2 Instance created in Step 1. for EC2 to access the AWS EKS 
+
+Go to IAM -> On the left pane click on Roles -> Click on Create Role -> Trusted entity type: AWS service -> Select Common use case: EC2 -> Click on Next -> Now select the Permission policies: AdministratorAccess -> Click on Next -> Give Role name -> Click on Create role
+
+Now go to EC2 instance -> Select the EC2 instance created -> Go to Actions on top right -> Select Security -> Modify IAM role -> Now select the IAM role created -> Click on Update IAM role
 
 2. Install Docker
 ```
