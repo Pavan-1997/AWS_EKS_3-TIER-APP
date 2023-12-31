@@ -197,6 +197,7 @@ h) Verify that the deployments are running.
 ```
 kubectl get deployment -n kube-system aws-load-balancer-controller
 ```
+![ALB_PODS](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/15aa54ca-cb78-4d55-aaef-2dd78ae02ab8)
 
 11. a) `EBS CSI - when a PVC is created then the EBS volume is automatically created and attached to the Redis Stateful Set`
 
@@ -240,11 +241,14 @@ helm install robot-shop --namespace robot-shop .
 ```
 kubectl get pods -n robot-shop
 ```
+![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/f9495069-10ff-4912-b251-603607147cae)
 
 16. Verify the service
 ```
 kubectl get svc -n robot-shop
 ```
+![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/dbb6addf-5a24-47de-8118-558e587544a7)
+
 You can see the LB
 
 
@@ -257,6 +261,8 @@ kubectl apply -f ingress.yaml
 ```
 kubectl get svc -n robot-shop
 ```
+![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/d736f4ee-517a-4837-8753-4aa78ef06abd)
+
 You can see the Ingress
 
 19. Now go to the AWS EC2 Load Balancers and access the DNS
