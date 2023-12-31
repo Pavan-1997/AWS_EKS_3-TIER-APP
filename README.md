@@ -191,6 +191,7 @@ g) Install helm
 ```
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=$cluster_name --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller --set region=us-west-1 --set vpcId=vpc-080eba0d104598a17
 ```
+![ALB](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/9f1eaee7-26ee-4b6b-9cb8-5da69dc3c47f)
 
 h) Verify that the deployments are running.
 ```
