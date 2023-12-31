@@ -120,19 +120,37 @@ eksctl create cluster --name=eks-robot-shop-server --region=us-west-1 --zones=us
 eksctl create nodegroup --cluster=eks-robot-shop-server --region=us-west-1 --name=eksdemo-ng-public --node-type=t2.medium --nodes=2 --nodes-min=2 --nodes-max=4 --node-volume-size=10 --ssh-access --ssh-public-key=AWS-KEYPAIR-NC --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access
 ```
 
+9. Configure IAM OIDC provider
+```
 export cluster_name=eks-robot-shop-server
 
 oidc_id=$(aws eks describe-cluster --region us-west-1 --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+```
 
+10. Check if there is an IAM OIDC provider configured already
+```
+aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
+```
+
+If not, run the below command
+```
 eksctl utils associate-iam-oidc-provider --region us-west-1 --cluster $cluster_name --approve
+```
 
-
+11. a) Setup ALB add-on by Download IAM policy
+```
 curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
+```
 
+b) Create IAM Policy
+```
 aws iam create-policy \
     --policy-name AWSLoadBalancerControllerIAMPolicy \
     --policy-document file://iam_policy.json
+```
 	
+c) Create IAM Role
+```
 eksctl create iamserviceaccount \
   --cluster=$cluster_name \
   --namespace=kube-system \
@@ -140,22 +158,39 @@ eksctl create iamserviceaccount \
   --role-name AmazonEKSLoadBalancerControllerRole \
   --attach-policy-arn=arn:aws:iam::009403810934:policy/AWSLoadBalancerControllerIAMPolicy \
   --approve
+```
 
-sudo apt update
-
+d) Install Helm
+```
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-
+```
+```
 chmod +x get_helm.sh
 ./get_helm.sh
-
+```
+```
 helm version
+```
 
+e) Add helm repo
+```
 helm repo add eks https://aws.github.io/eks-charts
+```
 
+f) Update the repo
+```
+helm repo update eks
+```
+
+g) Install helm
+```
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=$cluster_name --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller --set region=us-west-1 --set vpcId=vpc-080eba0d104598a17
+```
 
+h) Verify that the deployments are running.
+```
 kubectl get deployment -n kube-system aws-load-balancer-controller
-
+```
 
 EBS CSI - when a PVC is created then the EBS volume is automatically created and attached to the Redis Stateful Set 
 
