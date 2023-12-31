@@ -1,5 +1,5 @@
 # AWS_EKS_3-TIER-ARCHITECTURE
-      
+       
 ## THREE TIER ARCHITECTURAL MODEL:
 
 - FRONT-END - UI - Presentation Layer
