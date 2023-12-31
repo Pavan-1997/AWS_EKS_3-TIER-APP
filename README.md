@@ -269,4 +269,5 @@ You can see the Ingress
 
 19. Now go to the AWS EC2 Load Balancers and access the DNS
 
+![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/235af93c-2693-4aa7-b53f-1b7fe8d2a778)
 
