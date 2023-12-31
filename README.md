@@ -119,11 +119,13 @@ eksctl version
 ```   
 eksctl create cluster --name=eks-robot-shop-server --region=us-west-1 --zones=us-west-1a,us-west-1c --without-nodegroup
 ```
+![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/9909ca03-5b59-42db-bf04-36c9f15b5657)
 
 8. Create a NodeGroup with 2 instances giving necessary access with a existing keypair
 ```
 eksctl create nodegroup --cluster=eks-robot-shop-server --region=us-west-1 --name=eksdemo-ng-public --node-type=t2.medium --nodes=2 --nodes-min=2 --nodes-max=4 --node-volume-size=10 --ssh-access --ssh-public-key=AWS-KEYPAIR-NC --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access
 ```
+![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/a246a311-0053-4ce7-88be-b3ba40d43bac)
 
 9. Configure IAM OIDC provider
 ```
