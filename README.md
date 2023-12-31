@@ -275,3 +275,8 @@ You can see the Ingress
 
 ![image](https://github.com/Pavan-1997/AWS_EKS_3-Tier-Architecture/assets/32020205/235af93c-2693-4aa7-b53f-1b7fe8d2a778)
 
+21. Delete the Cluster
+```
+eksctl delete cluster --name=eks-robot-shop-server --region=us-west-1 --zones=us-west-1a,us-west-1c --without-nodegroup
+```
+
