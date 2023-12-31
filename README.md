@@ -277,6 +277,6 @@ You can see the Ingress
 
 21. Delete the Cluster
 ```
-eksctl delete cluster --name=eks-robot-shop-server --region=us-west-1 --zones=us-west-1a,us-west-1c --without-nodegroup
+eksctl delete cluster --name=eks-robot-shop-server --region=us-west-1
 ```
 
